@@ -1,4 +1,5 @@
 const express = require("express");
+const Model = require("./model/model.js");
 const router = express.Router();
 
 router.get("/locations", (req, res) => {
