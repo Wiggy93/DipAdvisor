@@ -1,10 +1,8 @@
 const express = require("express");
-const Model = require("../model/model.js");
+const getLocations = require("../controllers/controllers");
 const router = express.Router();
 
-router.get("/locations", (req, res) => {
-  res.send("Get locations");
-});
+router.get("/locations", getLocations);
 router.get("/locations/:location_id", (req, res) => {
   res.send("Get location");
 });

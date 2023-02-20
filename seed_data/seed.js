@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Model = require("../model/model");
+const Model = require("../schemas/locationSchema");
 const locations = require("./data/test_data");
 
 require("dotenv").config({
