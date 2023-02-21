@@ -2,6 +2,7 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 const app = require("../index");
 const seed = require("../seed_data/seed.js");
+const { fetchLocations } = require("../models/models");
 
 require("dotenv").config();
 
@@ -45,9 +46,29 @@ describe("Post Locations", () => {
       });
   });
 
-  // test("should confirm that posted location has actually added to database by using getLocationsById", () => {
-  //   ///once this function is written in another branch
-  // });
+  test("should confirm that posted location has actually added to database by using getLocationsById", () => {
+    return request(app)
+      .post("/api/locations")
+      .send({
+        location_name: "The North Sea",
+        coordinates: [53.863369, , 0.47472],
+        created_by: "Alex",
+        image_url:
+          "https://lh5.googleusercontent.com/p/AF1QipM5pelCh9LS5GAv7XUt2eO2SPVu5ocTCFjzuyGy=w408-h272-k-no",
+        description: "A big sea",
+        public: true,
+      })
+      .expect(201)
+      .then(() => {
+        return request(app)
+          .get("/api/locations")
+          .expect(200)
+          .then(({ body }) => {
+            console.log(body, "get all locations");
+            expect(body[body.length - 1].location_name).toBe("The North Sea");
+          });
+      });
+  });
 
   test("400: missing required fields", () => {
     return request(app)
