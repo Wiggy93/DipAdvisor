@@ -6,7 +6,7 @@ const { fetchLocations } = require("../models/models");
 
 require("dotenv").config();
 
-beforeAll(async () => {
+beforeEach(async () => {
   await seed();
 });
 
@@ -46,7 +46,7 @@ describe("Post /api/locations", () => {
       });
   });
 
-  test("should confirm that posted location has actually added to database by using getLocationsById", () => {
+  test("201: should confirm that posted location has actually added to database by using getLocationsById", () => {
     return request(app)
       .post("/api/locations")
       .send({
@@ -64,9 +64,26 @@ describe("Post /api/locations", () => {
           .get("/api/locations")
           .expect(200)
           .then(({ body }) => {
-            console.log(body, "get all locations");
             expect(body[body.length - 1].location_name).toBe("The North Sea");
           });
+      });
+  });
+
+  test("201: should replace mongoDB automatic objectId hex code with increasing integer", () => {
+    return request(app)
+      .post("/api/locations")
+      .send({
+        location_name: "Andark Lake",
+        coordinates: [50.879926, , -1.290888],
+        created_by: "Alex",
+        image_url:
+          "https://andarklake.co.uk/wp-content/uploads/2021/03/swim1-300x200.jpg",
+        description: "Organised open water swimming, with set opening times",
+        public: false,
+      })
+      .expect(201)
+      .then(({ body }) => {
+        expect(body.location[0]._id).toEqual(expect.any(Number));
       });
   });
 
@@ -95,14 +112,6 @@ describe("Post /api/locations", () => {
       });
   });
 });
-
-// beforeEach(async () => {
-//   await seed();
-// });
-
-// afterAll(() => {
-//   mongoose.connection.close();
-// });
 
 describe("GET /api/locations/:id", () => {
   test("200: Responds with the location object", async () => {
