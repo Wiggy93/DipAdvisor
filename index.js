@@ -12,6 +12,12 @@ const database = mongoose.connection;
 app.use(express.json());
 app.use("/api", routes);
 
+app.use((err, req, res, next) => {
+  const { status, message } = err;
+  if (status) res.status(status).send({ message });
+  else next(err);
+});
+
 app.listen(3000, () => {
   console.log(`Server Started at ${3000}`);
 });
