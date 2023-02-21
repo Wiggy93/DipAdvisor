@@ -11,13 +11,16 @@ afterAll(async () => {
   mongoose.connection.close();
 });
 
-describe("GET /api/locations/:id", () => {
+describe("GET /api/locations", () => {
   it("returns 200", () => {
+    return request(app).get("/api/locations").expect(200);
+  });
+  it("returns an array of location objects", () => {
     return request(app)
-      .get("/api/locations/1")
+      .get("/api/locations")
       .expect(200)
-      .then(({ body, body: { location } }) => {
-        console.log(body);
+      .then(({ body }) => {
+        expect(body).toBeInstanceOf(Array);
       });
   });
 });
