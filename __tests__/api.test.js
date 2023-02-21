@@ -5,11 +5,11 @@ const seed = require("../seed_data/seed.js");
 
 require("dotenv").config();
 
-beforeEach(async () => {
+beforeAll(async () => {
   await seed();
 });
 
-afterEach(async () => {
+afterAll(async () => {
   mongoose.connection.close();
 });
 
@@ -59,7 +59,7 @@ describe("Post Locations", () => {
       });
   });
 
-  test.only("400: should not be able able to make 2 locations with the same location_name, sends back error if tries", () => {
+  test("409: should not be able able to make 2 locations with the same location_name, sends back error if tries", () => {
     return request(app)
       .post("/api/locations")
       .send({
@@ -68,9 +68,9 @@ describe("Post Locations", () => {
         description: "A water storage resevoir 6.5 miles west of Sheffield.",
         public: true,
       })
-      .expect(400)
-      .then((body) => {
-        expect(body.message).toBe("Location already exists");
+      .expect(409)
+      .then(({ body }) => {
+        expect(body.message).toBe("Location name already exists");
       });
   });
 });

@@ -1,12 +1,18 @@
-const { addLocation } = require("../models/models");
+const { fetchLocations, addLocation } = require("../models/models");
 
-const getLocations = (req, res) => {};
+const getLocations = (req, res) => {
+  fetchLocations().then((locations) => {
+    res.status(200).send(locations);
+  });
+};
 
 const postLocation = (req, res, next) => {
   const { body } = req;
-  addLocation(body)
+  fetchLocations()
+    .then((list) => {
+      return addLocation(body, list);
+    })
     .then((data) => {
-      console.log(data, "<<<controller");
       res.status(201).send({ location: data });
     })
     .catch((err) => {
