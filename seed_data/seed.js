@@ -22,8 +22,8 @@ const seedDB = async () => {
     await Model.deleteMany({});
     for (let i = 0; i < locations.length; i++) {
       locations[i]["_id"] = i + 1;
-      await Model.insertMany(locations[i]);
     }
+    await Model.insertMany(locations);
   } catch (error) {
     console.log(error);
   }

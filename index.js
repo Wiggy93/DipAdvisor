@@ -12,8 +12,19 @@ const database = mongoose.connection;
 app.use(express.json());
 app.use("/api", routes);
 
-app.listen(3000, () => {
-  console.log(`Server Started at ${3000}`);
+// app.listen(3000, () => {
+//   console.log(`Server Started at ${3000}`);
+// });
+
+app.use((err, req, res, next) => {
+  const { status, message } = err;
+  if (status) res.status(status).send({ message });
+  else next(err);
+});
+
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).send("Internal Server Error");
 });
 
 database.on("error", (error) => {
@@ -23,3 +34,5 @@ database.on("error", (error) => {
 database.once("connected", () => {
   console.log("Database Connected");
 });
+
+module.exports = app;
