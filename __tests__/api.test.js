@@ -3,7 +3,7 @@ const app = require("../index");
 const seed = require("../seed_data/seed.js");
 const mongoose = require("mongoose");
 
-beforeAll(async () => {
+beforeEach(async () => {
   await seed();
 });
 
@@ -41,5 +41,40 @@ describe("GET /api/locations/:id", () => {
       body: { message },
     } = await request(app).get("/api/locations/eeee").expect(400);
     expect(message).toEqual("Bad Request");
+  });
+});
+
+describe("PATH /api/locations/:id", () => {
+  test("200: Updates the dangerous property to true", () => {
+    return request(app)
+      .patch("/api/locations/1")
+      .expect(200)
+      .then(({ body: { updatedLocation } }) => {
+        expect(updatedLocation).toHaveProperty("dangerous", true);
+      });
+  });
+  test("200: Updates the dangerous property to false", () => {
+    return request(app)
+      .patch("/api/locations/2")
+      .expect(200)
+      .then(({ body: { updatedLocation } }) => {
+        expect(updatedLocation).toHaveProperty("dangerous", false);
+      });
+  });
+  test("404: Location Not Found", () => {
+    return request(app)
+      .patch("/api/locations/5")
+      .expect(404)
+      .then(({ body: { message } }) => {
+        expect(message).toEqual("Not Found");
+      });
+  });
+  test("400: Invalid datatype for location_id", () => {
+    return request(app)
+      .patch("/api/locations/a")
+      .expect(400)
+      .then(({ body: { message } }) => {
+        expect(message).toEqual("Bad Request");
+      });
   });
 });

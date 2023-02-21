@@ -23,9 +23,10 @@ app.use((err, req, res, next) => {
   res.status(500).send("Internal Server Error");
 });
 
-app.listen(3000, () => {
-  console.log(`Server Started at ${3000}`);
-});
+// Commented out this because it was interfering with jest
+// app.listen(3000, () => {
+//   console.log(`Server Started at ${3000}`);
+// });
 
 database.on("error", (error) => {
   console.log(error);
