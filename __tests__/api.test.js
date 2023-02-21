@@ -7,7 +7,7 @@ beforeAll(async () => {
   await seed();
 });
 
-afterAll(async () => {
+afterAll(() => {
   mongoose.connection.close();
 });
 

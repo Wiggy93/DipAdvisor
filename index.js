@@ -18,6 +18,11 @@ app.use((err, req, res, next) => {
   else next(err);
 });
 
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).send("Internal Server Error");
+});
+
 app.listen(3000, () => {
   console.log(`Server Started at ${3000}`);
 });
