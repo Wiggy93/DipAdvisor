@@ -3,6 +3,7 @@ const {
   getLocations,
   getLocationById,
   patchLocationById,
+  postLocation,
 } = require("../controllers/controllers");
 const router = express.Router();
 
@@ -12,9 +13,7 @@ router
   .get(getLocationById)
   .patch(patchLocationById);
 
-router.post("/locations", (req, res) => {
-  res.send("Post location");
-});
+router.post("/locations", postLocation);
 
 router.patch("/locations/:location_id", (req, res) => {
   res.send("Patch location");

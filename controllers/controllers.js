@@ -1,6 +1,31 @@
-const { fetchLocationById, updateLocationById } = require("../models/models");
+const {
+  fetchLocationById,
+  updateLocationById,
+  fetchLocations,
+  addLocation,
+} = require("../models/models");
 
-const getLocations = (req, res, next) => {};
+// const { fetchLocations, addLocation } = require("../models/models");
+
+const getLocations = (req, res, next) => {
+  fetchLocations().then((locations) => {
+    res.status(200).send(locations);
+  });
+};
+
+const postLocation = (req, res, next) => {
+  const { body } = req;
+  fetchLocations()
+    .then((list) => {
+      return addLocation(body, list);
+    })
+    .then((data) => {
+      res.status(201).send({ location: data });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
 const getLocationById = (req, res, next) => {
   const { location_id } = req.params;
   fetchLocationById(location_id)
@@ -19,4 +44,9 @@ const patchLocationById = (req, res, next) => {
     .catch(next);
 };
 
-module.exports = { getLocations, getLocationById, patchLocationById };
+module.exports = {
+  getLocations,
+  postLocation,
+  getLocationById,
+  patchLocationById,
+};
