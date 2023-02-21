@@ -58,4 +58,19 @@ describe("Post Locations", () => {
         expect(body.message).toBe("Bad Request");
       });
   });
+
+  test.only("400: should not be able able to make 2 locations with the same location_name, sends back error if tries", () => {
+    return request(app)
+      .post("/api/locations")
+      .send({
+        location_name: "Agden Resevoir",
+        created_by: "Mitchel",
+        description: "A water storage resevoir 6.5 miles west of Sheffield.",
+        public: true,
+      })
+      .expect(400)
+      .then((body) => {
+        expect(body.message).toBe("Location already exists");
+      });
+  });
 });

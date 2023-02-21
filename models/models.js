@@ -7,9 +7,11 @@ const addLocation = async (body) => {
     body.description === undefined ||
     body.public === undefined
   ) {
-    console.log("created at not here");
     return Promise.reject({ status: 400, message: "Bad Request" });
-  } else {
+  } else if (){
+    
+  }
+  else {
     const location = await locationSchema.insertMany(body);
     return location;
   }
