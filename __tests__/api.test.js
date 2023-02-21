@@ -1,30 +1,45 @@
 const request = require("supertest");
+const app = require("../index");
+const seed = require("../seed_data/seed.js");
+const mongoose = require("mongoose");
 
-describe("insert", () => {
-  let connection;
-  let db;
+beforeAll(async () => {
+  await seed();
+});
 
-  beforeAll(async () => {
-    connection = await MongoClient.connect(globalThis.__MONGO_URI__, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+afterAll(() => {
+  mongoose.connection.close();
+});
+
+describe("GET /api/locations/:id", () => {
+  test("200: Responds with the location object", async () => {
+    const {
+      body: { location },
+    } = await request(app).get("/api/locations/1").expect(200);
+    expect(location).toMatchObject({
+      _id: 1,
+      location_name: expect.any(String),
+      coordinates: expect.any(Array),
+      created_by: expect.any(String),
+      image_url: expect.any(String),
+      votes: 0,
+      comments: expect.any(Array),
+      description: expect.any(String),
+      public: expect.any(Boolean),
+      dangerous: false,
+      created_at: expect.any(String),
     });
-    db = await connection.db(globalThis.__MONGO_DB_NAME__);
   });
-
-  afterAll(async () => {
-    await connection.close();
+  test("404: Location Not Found", async () => {
+    const {
+      body: { message },
+    } = await request(app).get("/api/locations/203874923").expect(404);
+    expect(message).toEqual("Not Found");
   });
-
-  it("returns 200", () => {});
-
-  it("should insert a doc into collection", async () => {
-    const users = db.collection("users");
-
-    const mockUser = { _id: "some-user-id", name: "John" };
-    await users.insertOne(mockUser);
-
-    const insertedUser = await users.findOne({ _id: "some-user-id" });
-    expect(insertedUser).toEqual(mockUser);
+  test("400: Invalid datatype for location_id", async () => {
+    const {
+      body: { message },
+    } = await request(app).get("/api/locations/eeee").expect(400);
+    expect(message).toEqual("Bad Request");
   });
 });
