@@ -1,30 +1,23 @@
 const request = require("supertest");
+const app = require("../index");
+const seed = require("../seed_data/seed.js");
+const mongoose = require("mongoose");
 
-describe("insert", () => {
-  let connection;
-  let db;
+beforeAll(async () => {
+  await seed();
+});
 
-  beforeAll(async () => {
-    connection = await MongoClient.connect(globalThis.__MONGO_URI__, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    db = await connection.db(globalThis.__MONGO_DB_NAME__);
-  });
+afterAll(async () => {
+  mongoose.connection.close();
+});
 
-  afterAll(async () => {
-    await connection.close();
-  });
-
-  it("returns 200", () => {});
-
-  it("should insert a doc into collection", async () => {
-    const users = db.collection("users");
-
-    const mockUser = { _id: "some-user-id", name: "John" };
-    await users.insertOne(mockUser);
-
-    const insertedUser = await users.findOne({ _id: "some-user-id" });
-    expect(insertedUser).toEqual(mockUser);
+describe("GET /api/locations/:id", () => {
+  it("returns 200", () => {
+    return request(app)
+      .get("/api/locations/1")
+      .expect(200)
+      .then(({ body, body: { location } }) => {
+        console.log(body);
+      });
   });
 });
