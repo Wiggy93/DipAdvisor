@@ -20,13 +20,13 @@ mongoose
 const seedDB = async () => {
   try {
     await Model.deleteMany({});
-    await Model.insertMany(locations);
+    for (let i = 0; i < locations.length; i++) {
+      locations[i]["_id"] = i + 1;
+      await Model.insertMany(locations[i]);
+    }
   } catch (error) {
     console.log(error);
   }
 };
 
-seedDB().then(() => {
-  mongoose.connection.close();
-  console.log("disconnected from database");
-});
+module.exports = seedDB;
