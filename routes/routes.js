@@ -1,11 +1,17 @@
 const express = require("express");
-const { getLocations, postLocation } = require("../controllers/controllers");
+const {
+  getLocations,
+  getLocationById,
+  patchLocationById,
+  postLocation,
+} = require("../controllers/controllers");
 const router = express.Router();
 
 router.get("/locations", getLocations);
-router.get("/locations/:location_id", (req, res) => {
-  res.send("Get location");
-});
+router
+  .route("/locations/:location_id")
+  .get(getLocationById)
+  .patch(patchLocationById);
 
 router.post("/locations", postLocation);
 

@@ -12,6 +12,7 @@ const locations = [
     created_by: "Lewis",
     description: "Testing.",
     public: true,
+    dangerous: true,
   },
 ];
 module.exports = locations;

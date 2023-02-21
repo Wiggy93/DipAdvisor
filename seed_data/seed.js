@@ -19,7 +19,7 @@ mongoose
 
 const seedDB = async () => {
   try {
-    await Model.deleteMany({});
+    await Model.deleteMany();
     for (let i = 0; i < locations.length; i++) {
       locations[i]["_id"] = i + 1;
     }

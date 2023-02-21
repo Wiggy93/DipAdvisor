@@ -12,10 +12,6 @@ const database = mongoose.connection;
 app.use(express.json());
 app.use("/api", routes);
 
-// app.listen(3000, () => {
-//   console.log(`Server Started at ${3000}`);
-// });
-
 app.use((err, req, res, next) => {
   const { status, message } = err;
   if (status) res.status(status).send({ message });
@@ -26,6 +22,11 @@ app.use((err, req, res, next) => {
   console.log(err);
   res.status(500).send("Internal Server Error");
 });
+
+// Commented out this because it was interfering with jest
+// app.listen(3000, () => {
+//   console.log(`Server Started at ${3000}`);
+// });
 
 database.on("error", (error) => {
   console.log(error);
