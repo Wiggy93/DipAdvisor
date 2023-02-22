@@ -118,7 +118,7 @@ describe("Post /api/locations", () => {
 //   mongoose.connection.close();
 // });
 
-describe("GET /api/locations/:id (get location by ID", () => {
+describe("GET /api/locations/:id (get location by ID)", () => {
   test("200: Responds with the location object", async () => {
     const {
       body: { location },
