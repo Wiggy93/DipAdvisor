@@ -6,7 +6,7 @@ const locationSchema = new mongoose.Schema(
     coordinates: { type: Array },
     created_by: { type: String, required: true },
     created_at: { type: Date, immutable: true, default: () => Date.now() },
-    image_url: String,
+    image_url: Array,
     votes: { type: Number, default: 0 },
     comments: Array,
     description: { type: String, required: true, maxLength: 1000 },
