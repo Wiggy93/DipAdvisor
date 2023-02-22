@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const locationSchema = new mongoose.Schema(
   {
     _id: Number,
-    location_name: { type: String, required: true },
+    location_name: { type: String, required: true, unique: true },
     coordinates: { type: Array },
     created_by: { type: String, required: true },
     created_at: { type: Date, immutable: true, default: () => Date.now() },
@@ -15,6 +15,8 @@ const locationSchema = new mongoose.Schema(
     public: { type: Boolean, required: true },
     dangerous: { type: Boolean, default: false },
   },
-  { _id: false }
+  {
+    _id: false,
+  }
 );
 module.exports = mongoose.model("Location", locationSchema);
