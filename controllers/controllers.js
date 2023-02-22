@@ -25,6 +25,10 @@ const postLocation = (req, res, next) => {
     .catch((err) => {
       next(err);
     });
+
+  fetchLocations().then((locations) => {
+    res.status(200).send(locations);
+  });
 };
 const getLocationById = (req, res, next) => {
   const { location_id } = req.params;

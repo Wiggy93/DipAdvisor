@@ -14,6 +14,20 @@ afterAll(async () => {
   mongoose.connection.close();
 });
 
+describe("GET /api/locations (all locations)", () => {
+  it("returns 200", () => {
+    return request(app).get("/api/locations").expect(200);
+  });
+  it("returns an array of location objects", () => {
+    return request(app)
+      .get("/api/locations")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toBeInstanceOf(Array);
+      });
+  });
+});
+
 describe("Post /api/locations", () => {
   test("201: POST to /api/location should add the input location data to th database, responding with the posted location summary", () => {
     return request(app)
@@ -104,7 +118,7 @@ describe("Post /api/locations", () => {
 //   mongoose.connection.close();
 // });
 
-describe("GET /api/locations/:id", () => {
+describe("GET /api/locations/:id (get location by ID)", () => {
   test("200: Responds with the location object", async () => {
     const {
       body: { location },
@@ -147,6 +161,9 @@ describe("PATH /api/locations/:id", () => {
       });
   });
   test("200: Updates the dangerous property to false", () => {
+    return request(app).get("/api/locations").expect(200);
+  });
+  it("returns an array of location objects", () => {
     return request(app)
       .patch("/api/locations/2")
       .expect(200)
