@@ -13,8 +13,22 @@ afterAll(async () => {
   mongoose.connection.close();
 });
 
+describe("GET /api/locations (all locations)", () => {
+  it("returns 200", () => {
+    return request(app).get("/api/locations").expect(200);
+  });
+  it("returns an array of location objects", () => {
+    return request(app)
+      .get("/api/locations")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toBeInstanceOf(Array);
+      });
+  });
+});
+
 describe("Post /api/locations", () => {
-  test.only("201: POST to /api/location should add the input location data to th database, responding with the posted location summary", () => {
+  test("201: POST to /api/location should add the input location data to th database, responding with the posted location summary", () => {
     return request(app)
       .post("/api/locations")
       .send({
@@ -155,6 +169,9 @@ describe("PATH /api/locations/:id", () => {
       });
   });
   test("200: Updates the dangerous property to false", () => {
+    return request(app).get("/api/locations").expect(200);
+  });
+  it("returns an array of location objects", () => {
     return request(app)
       .patch("/api/locations/2")
       .expect(200)

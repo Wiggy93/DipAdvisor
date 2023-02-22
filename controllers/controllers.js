@@ -5,8 +5,6 @@ const {
   addLocation,
 } = require("../models/models");
 
-// const { fetchLocations, addLocation } = require("../models/models");
-
 const getLocations = (req, res, next) => {
   fetchLocations().then((locations) => {
     res.status(200).send(locations);
