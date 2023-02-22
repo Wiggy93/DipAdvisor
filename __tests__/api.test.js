@@ -2,6 +2,7 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 const app = require("../index");
 const seed = require("../seed_data/seed.js");
+const sorted = require("jest-sorted");
 
 require("dotenv").config();
 
@@ -22,7 +23,7 @@ describe("GET /api/locations (all locations)", () => {
       .get("/api/locations")
       .expect(200)
       .then(({ body }) => {
-        expect(body).toBeInstanceOf(Array);
+        expect(body.locations).toBeInstanceOf(Array);
       });
   });
 });
@@ -76,8 +77,10 @@ describe("Post /api/locations", () => {
         return request(app)
           .get("/api/locations")
           .expect(200)
-          .then(({ body }) => {
-            expect(body[body.length - 1].location_name).toBe("The North Sea");
+          .then(({ body: { locations } }) => {
+            expect(locations[locations.length - 1].location_name).toBe(
+              "The North Sea"
+            );
           });
       });
   });
@@ -193,6 +196,37 @@ describe("PATH /api/locations/:id", () => {
       .expect(400)
       .then(({ body: { message } }) => {
         expect(message).toEqual("Bad Request");
+      });
+  });
+});
+
+describe("GET /api/locations queries", () => {
+  it("returns a status 200 and an array of safe locations ", () => {
+    return request(app)
+      .get("/api/locations?dangerous=false")
+      .expect(200)
+      .then(({ body }) => {
+        body.locations.forEach((location) => {
+          expect(location.dangerous).toBe(false);
+        });
+      });
+  });
+  it("returns a staus 200 and an array of unsafe locations", () => {
+    return request(app)
+      .get("/api/locations?dangerous=true")
+      .expect(200)
+      .then(({ body }) => {
+        body.locations.forEach((location) => {
+          expect(location.dangerous).toBe(true);
+        });
+      });
+  });
+  it("rejects unacceptable fields", () => {
+    return request(app)
+      .get("/api/locations?bananas=true")
+      .expect(400)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Bad request");
       });
   });
 });

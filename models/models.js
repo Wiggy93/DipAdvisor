@@ -1,6 +1,24 @@
 const locationSchema = require("../schemas/locationSchema");
 
-const fetchLocations = () => {
+const fetchLocations = (query) => {
+  const acceptableQueries = [
+    "location_name",
+    "created_by",
+    "public",
+    "dangerous",
+  ];
+  const validQuery = acceptableQueries.find(
+    (element) => element === Object.keys(query)[0]
+  );
+
+  if (query && validQuery) {
+    return locationSchema.find(query).then((data) => {
+      return data;
+    });
+  }
+  if (query && !validQuery) {
+    return Promise.reject({ status: 400, message: "Bad request" });
+  }
   return locationSchema.find({}).then((data) => {
     return data;
   });
