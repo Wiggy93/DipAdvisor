@@ -196,3 +196,14 @@ describe("PATH /api/locations/:id", () => {
       });
   });
 });
+
+describe("GET all endpoints (/api)", () => {
+  it("returns a json object of all endpoints", () => {
+    return request(app)
+      .get("/api")
+      .expect(200)
+      .then(({ body: { endpoints } }) => {
+        expect(endpoints).toBeInstanceOf(Object);
+      });
+  });
+});
