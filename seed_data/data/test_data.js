@@ -2,7 +2,7 @@ const locations = [
   {
     location_name: "Agden Resevoir",
     created_by: "Mitchel",
-    image_url: [
+    image_urls: [
       "https://fastly.picsum.photos/id/125/1500/1000.jpg?hmac=s6pniw6JFp6F753Ow9mnVAVqt8tOcP8ZlZE5-aJ22co",
     ],
     description: "A water storage resevoir 6.5 miles west of Sheffield.",
@@ -13,7 +13,7 @@ const locations = [
     created_by: "Alex",
     coordinates: [51.146592, -0.063179],
     description: "Open water swiming before 9:30am on most days",
-    image_url: [
+    image_urls: [
       "https://media-cdn.tripadvisor.com/media/photo-s/11/0c/55/4f/beautiful-setting-on.jpg",
     ],
     public: true,
@@ -31,7 +31,7 @@ const locations = [
   {
     location_name: "Shepperton Lake",
     created_by: "Ben",
-    image_url: [
+    image_urls: [
       "https://www.sheppertonopenwaterswim.co.uk/assets/img/sows-lake-swimmers.jpg",
     ],
     coordinates: [51.386396, -0.454182],
@@ -43,7 +43,7 @@ const locations = [
   {
     location_name: "Askham & Helton Lido",
     created_by: "Admin",
-    image_url: [
+    image_urls: [
       "https://www.askhamandhelton.co.uk/wp-content/uploads/2014/04/Pool2-1024x192.jpg",
       "http://www.askhamandhelton.co.uk/wp-content/uploads/2014/04/pool5.jpg",
       "http://www.askhamandhelton.co.uk/wp-content/uploads/2014/04/pool5.jpg",

@@ -36,7 +36,7 @@ describe("Post /api/locations", () => {
         location_name: "Overbeck bridge, Wastwater",
         coordinates: [54.449505, -3.284804],
         created_by: "Alex",
-        image_url: [
+        image_urls: [
           "https://www.wildswimming.co.uk/wp-content/uploads/place/_MG_5638.jpg",
         ],
         description: "A long lake with fantastic scenery and beautiful water",
@@ -50,7 +50,7 @@ describe("Post /api/locations", () => {
         expect(newLocation.location_name).toBe("Overbeck bridge, Wastwater");
         expect(newLocation.coordinates).toEqual([54.449505, -3.284804]);
         expect(newLocation.created_by).toBe("Alex");
-        expect(newLocation.image_url).toEqual([
+        expect(newLocation.image_urls).toEqual([
           "https://www.wildswimming.co.uk/wp-content/uploads/place/_MG_5638.jpg",
         ]);
         expect(newLocation.description).toBe(
@@ -68,7 +68,7 @@ describe("Post /api/locations", () => {
         location_name: "The North Sea",
         coordinates: [53.863369, , 0.47472],
         created_by: "Alex",
-        image_url: [
+        image_urls: [
           "https://lh5.googleusercontent.com/p/AF1QipM5pelCh9LS5GAv7XUt2eO2SPVu5ocTCFjzuyGy=w408-h272-k-no",
         ],
         description: "A big sea",
@@ -94,7 +94,7 @@ describe("Post /api/locations", () => {
         location_name: "Andark Lake",
         coordinates: [50.879926, , -1.290888],
         created_by: "Alex",
-        image_url: [
+        image_urls: [
           "https://andarklake.co.uk/wp-content/uploads/2021/03/swim1-300x200.jpg",
         ],
         description: "Organised open water swimming, with set opening times",
@@ -142,7 +142,7 @@ describe("GET /api/locations/:id", () => {
       location_name: expect.any(String),
       coordinates: expect.any(Array),
       created_by: expect.any(String),
-      image_url: expect.any(Array),
+      image_urls: expect.any(Array),
       votes: 0,
       comments: expect.any(Array),
       description: expect.any(String),
