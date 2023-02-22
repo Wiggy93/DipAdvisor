@@ -21,8 +21,7 @@ describe("GET /api/locations (all locations)", () => {
     return request(app)
       .get("/api/locations")
       .expect(200)
-      .then(({ body, body: { locations } }) => {
-        console.log(body);
+      .then(({ body: { locations } }) => {
         expect(locations).toBeInstanceOf(Array);
       });
   });
