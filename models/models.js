@@ -1,27 +1,25 @@
 const locationSchema = require("../schemas/locationSchema");
 
 const fetchLocations = (query) => {
-  const acceptableQueries = [
-    "location_name",
-    "created_by",
-    "public",
-    "dangerous",
-  ];
-  const validQuery = acceptableQueries.find(
-    (element) => element === Object.keys(query)[0]
-  );
+  if (query && Object.keys(query).length > 0) {
+    const acceptableQueries = ["public", "dangerous"];
+    const validQuery = acceptableQueries.find(
+      (element) => element === Object.keys(query)[0]
+    );
 
-  if (query && validQuery) {
-    return locationSchema.find(query).then((data) => {
+    if (query && validQuery) {
+      return locationSchema.find(query).then((data) => {
+        return data;
+      });
+    }
+    if (query && !validQuery) {
+      return Promise.reject({ status: 400, message: "Bad request" });
+    }
+  } else {
+    return locationSchema.find().then((data) => {
       return data;
     });
   }
-  if (query && !validQuery) {
-    return Promise.reject({ status: 400, message: "Bad request" });
-  }
-  return locationSchema.find({}).then((data) => {
-    return data;
-  });
 };
 
 const addLocation = async (body, list) => {
