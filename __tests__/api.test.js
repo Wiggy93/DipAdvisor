@@ -2,7 +2,6 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 const app = require("../index");
 const seed = require("../seed_data/seed.js");
-const { fetchLocations } = require("../models/models");
 
 require("dotenv").config();
 
@@ -15,7 +14,7 @@ afterAll(async () => {
 });
 
 describe("Post /api/locations", () => {
-  test("201: POST to /api/location should add the input location data to th database, responding with the posted location summary", () => {
+  test.only("201: POST to /api/location should add the input location data to th database, responding with the posted location summary", () => {
     return request(app)
       .post("/api/locations")
       .send({
