@@ -27,7 +27,10 @@ const addLocation = async (body, list) => {
     });
   }
 
-  const location = await locationSchema.insertMany(body);
+  const location = await locationSchema.insertMany({
+    ...body,
+    _id: locationSchema.length,
+  });
   return location;
 };
 
