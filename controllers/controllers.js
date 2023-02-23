@@ -3,6 +3,7 @@ const {
   updateLocationById,
   fetchLocations,
   addLocation,
+  readEndpoints,
 } = require("../models/models");
 
 const getLocations = (req, res, next) => {
@@ -47,9 +48,16 @@ const patchLocationById = (req, res, next) => {
     .catch(next);
 };
 
+const getEndpoints = (req, res, next) => {
+  readEndpoints().then((endpoints) => {
+    res.send({ endpoints });
+  });
+};
+
 module.exports = {
   getLocations,
   postLocation,
   getLocationById,
   patchLocationById,
+  getEndpoints,
 };

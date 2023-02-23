@@ -15,8 +15,9 @@ router
 
 router.post("/locations", postLocation);
 
-router.patch("/locations/:location_id", (req, res) => {
-  res.send("Patch location");
-});
+// What is this for? It doesn't seem to do anything.
+// router.patch("/locations/:location_id", (req, res) => {
+//   res.send("Patch location");
+// });
 
 module.exports = router;

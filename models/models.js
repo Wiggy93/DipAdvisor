@@ -1,4 +1,5 @@
 const locationSchema = require("../schemas/locationSchema");
+const fs = require("fs/promises");
 
 const fetchLocations = (query) => {
   if (query && Object.keys(query).length > 0) {
@@ -78,9 +79,16 @@ const updateLocationById = async (location_id) => {
     });
 };
 
+const readEndpoints = () => {
+  return fs.readFile("./endpoints.json", "utf-8").then((data) => {
+    return JSON.parse(data);
+  });
+};
+
 module.exports = {
   fetchLocations,
   addLocation,
   fetchLocationById,
   updateLocationById,
+  readEndpoints,
 };

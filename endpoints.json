@@ -1,0 +1,105 @@
+{
+  "GET /api/locations": {
+    "Description": "Returns a list of all locations.",
+    "Queries": "dangerous (boolean) public (boolean).",
+    "Response body": {
+      "locations": [
+        {
+          "_id": 1,
+          "location_name": "Agden Resevoir",
+          "coordinates": [],
+          "created_by": "Mitchel",
+          "image_urls": [
+            "https://fastly.picsum.photos/id/125/1500/1000.jpg?hmac=s6pniw6JFp6F753Ow9mnVAVqt8tOcP8ZlZE5-aJ22co"
+          ],
+          "votes": 0,
+          "comments": [],
+          "description": "A water storage resevoir 6.5 miles west of Sheffield.",
+          "public": true,
+          "dangerous": false,
+          "created_at": "2023-02-23T09:26:05.040Z",
+          "__v": 0
+        }
+      ]
+    }
+  },
+
+  "GET /api/locations/:location_id": {
+    "Description": "Returns a single location.",
+    "Response body": {
+      "location": [
+        {
+          "_id": 1,
+          "location_name": "Agden Resevoir",
+          "coordinates": [],
+          "created_by": "Mitchel",
+          "image_urls": [
+            "https://fastly.picsum.photos/id/125/1500/1000.jpg?hmac=s6pniw6JFp6F753Ow9mnVAVqt8tOcP8ZlZE5-aJ22co"
+          ],
+          "votes": 0,
+          "comments": [],
+          "description": "A water storage resevoir 6.5 miles west of Sheffield.",
+          "public": true,
+          "dangerous": false,
+          "created_at": "2023-02-23T09:26:05.040Z",
+          "__v": 0
+        }
+      ]
+    },
+    "Request body example": ""
+  },
+  "PATCH /api/locations/:location_id": {
+    "Description": "Change the details of a location",
+    "Request body": "Any valid field from the location schema",
+    "Response body": {
+      "location": {
+        "_id": 1,
+        "location_name": "Agden Resevoir",
+        "coordinates": [],
+        "created_by": "Mitchel",
+        "image_urls": [
+          "https://fastly.picsum.photos/id/125/1500/1000.jpg?hmac=s6pniw6JFp6F753Ow9mnVAVqt8tOcP8ZlZE5-aJ22co"
+        ],
+        "votes": 0,
+        "comments": [],
+        "description": "A water storage resevoir 6.5 miles west of Sheffield.",
+        "public": true,
+        "dangerous": false,
+        "created_at": "2023-02-23T09:26:05.040Z",
+        "__v": 0
+      }
+    }
+  },
+  "POST /api/locations": {
+    "Description": "Adds a new location.",
+    "Request body": "An object with keys of location_name, created_by, description and public",
+    "Response body example": {
+      "location": {
+        "_id": 1,
+        "location_name": "Agden Resevoir",
+        "coordinates": [],
+        "created_by": "Mitchel",
+        "image_urls": [
+          "https://fastly.picsum.photos/id/125/1500/1000.jpg?hmac=s6pniw6JFp6F753Ow9mnVAVqt8tOcP8ZlZE5-aJ22co"
+        ],
+        "votes": 0,
+        "comments": [],
+        "description": "A water storage resevoir 6.5 miles west of Sheffield.",
+        "public": true,
+        "dangerous": false,
+        "created_at": "2023-02-23T09:26:05.040Z",
+        "__v": 0
+      }
+    }
+  },
+  "GET /api": {
+    "Description": "Returns all of the endpoints.",
+    "Response body example": "All endpoints on a key of endpoint"
+  },
+  "ENDPOINT PROFORMA": {
+    "Description": "",
+    "Queries": "",
+    "Response body example": "",
+    "Request body example": ""
+  }
+}

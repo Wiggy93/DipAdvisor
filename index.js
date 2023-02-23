@@ -1,6 +1,7 @@
 const routes = require("./routes/routes");
 const express = require("express");
 const mongoose = require("mongoose");
+const { getEndpoints } = require("./controllers/controllers");
 
 require("dotenv").config();
 
@@ -17,6 +18,8 @@ app.use((err, req, res, next) => {
   if (status) res.status(status).send({ message });
   else next(err);
 });
+
+app.get("/api/", getEndpoints);
 
 app.use((err, req, res, next) => {
   console.log(err);
