@@ -19,8 +19,8 @@ const getLocations = (req, res, next) => {
 const postLocation = (req, res, next) => {
   const { body } = req;
   fetchLocations()
-    .then((list) => {
-      return addLocation(body, list);
+    .then((data) => {
+      return addLocation(body, data);
     })
     .then((data) => {
       res.status(201).send({ location: data });

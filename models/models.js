@@ -22,7 +22,7 @@ const fetchLocations = (query) => {
   }
 };
 
-const addLocation = async (body, list) => {
+const addLocation = async (body, list, length) => {
   if (
     body.location_name === undefined ||
     body.created_by === undefined ||
@@ -42,10 +42,9 @@ const addLocation = async (body, list) => {
       message: "Location name already exists",
     });
   }
-
   const location = await locationSchema.insertMany({
     ...body,
-    _id: locationSchema.length,
+    _id: list.length + 1,
   });
   return location;
 };
