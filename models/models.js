@@ -1,9 +1,25 @@
 const locationSchema = require("../schemas/locationSchema");
 
-const fetchLocations = () => {
-  return locationSchema.find({}).then((data) => {
-    return data;
-  });
+const fetchLocations = (query) => {
+  if (query && Object.keys(query).length > 0) {
+    const acceptableQueries = ["public", "dangerous"];
+    const validQuery = acceptableQueries.find(
+      (element) => element === Object.keys(query)[0]
+    );
+
+    if (query && validQuery) {
+      return locationSchema.find(query).then((data) => {
+        return data;
+      });
+    }
+    if (query && !validQuery) {
+      return Promise.reject({ status: 400, message: "Bad request" });
+    }
+  } else {
+    return locationSchema.find().then((data) => {
+      return data;
+    });
+  }
 };
 
 const addLocation = async (body, list, length) => {

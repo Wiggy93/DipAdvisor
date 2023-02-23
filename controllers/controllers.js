@@ -6,9 +6,14 @@ const {
 } = require("../models/models");
 
 const getLocations = (req, res, next) => {
-  fetchLocations().then((data) => {
-    res.status(200).send({ locations: data });
-  });
+  const query = req.query;
+  fetchLocations(query)
+    .then((locations) => {
+      res.status(200).send({ locations });
+    })
+    .catch((err) => {
+      next(err);
+    });
 };
 
 const postLocation = (req, res, next) => {
