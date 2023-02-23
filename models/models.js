@@ -1,13 +1,29 @@
 const locationSchema = require("../schemas/locationSchema");
 const fs = require("fs/promises");
 
-const fetchLocations = () => {
-  return locationSchema.find({}).then((data) => {
-    return data;
-  });
+const fetchLocations = (query) => {
+  if (query && Object.keys(query).length > 0) {
+    const acceptableQueries = ["public", "dangerous"];
+    const validQuery = acceptableQueries.find(
+      (element) => element === Object.keys(query)[0]
+    );
+
+    if (query && validQuery) {
+      return locationSchema.find(query).then((data) => {
+        return data;
+      });
+    }
+    if (query && !validQuery) {
+      return Promise.reject({ status: 400, message: "Bad request" });
+    }
+  } else {
+    return locationSchema.find().then((data) => {
+      return data;
+    });
+  }
 };
 
-const addLocation = async (body, list) => {
+const addLocation = async (body, list, length) => {
   if (
     body.location_name === undefined ||
     body.created_by === undefined ||
@@ -27,10 +43,9 @@ const addLocation = async (body, list) => {
       message: "Location name already exists",
     });
   }
-
   const location = await locationSchema.insertMany({
     ...body,
-    _id: locationSchema.length,
+    _id: list.length + 1,
   });
   return location;
 };

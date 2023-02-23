@@ -2,6 +2,7 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 const app = require("../index");
 const seed = require("../seed_data/seed.js");
+const sorted = require("jest-sorted");
 
 require("dotenv").config();
 
@@ -9,7 +10,7 @@ beforeEach(async () => {
   await seed();
 });
 
-afterAll(async () => {
+afterAll(() => {
   mongoose.connection.close();
 });
 
@@ -21,8 +22,8 @@ describe("GET /api/locations (all locations)", () => {
     return request(app)
       .get("/api/locations")
       .expect(200)
-      .then(({ body }) => {
-        expect(body).toBeInstanceOf(Array);
+      .then(({ body: { locations } }) => {
+        expect(locations).toBeInstanceOf(Array);
       });
   });
 });
@@ -35,8 +36,9 @@ describe("Post /api/locations", () => {
         location_name: "Overbeck bridge, Wastwater",
         coordinates: [54.449505, -3.284804],
         created_by: "Alex",
-        image_url:
+        image_urls: [
           "https://www.wildswimming.co.uk/wp-content/uploads/place/_MG_5638.jpg",
+        ],
         description: "A long lake with fantastic scenery and beautiful water",
         public: true,
       })
@@ -48,9 +50,9 @@ describe("Post /api/locations", () => {
         expect(newLocation.location_name).toBe("Overbeck bridge, Wastwater");
         expect(newLocation.coordinates).toEqual([54.449505, -3.284804]);
         expect(newLocation.created_by).toBe("Alex");
-        expect(newLocation.image_url).toBe(
-          "https://www.wildswimming.co.uk/wp-content/uploads/place/_MG_5638.jpg"
-        );
+        expect(newLocation.image_urls).toEqual([
+          "https://www.wildswimming.co.uk/wp-content/uploads/place/_MG_5638.jpg",
+        ]);
         expect(newLocation.description).toBe(
           "A long lake with fantastic scenery and beautiful water"
         );
@@ -66,8 +68,9 @@ describe("Post /api/locations", () => {
         location_name: "The North Sea",
         coordinates: [53.863369, , 0.47472],
         created_by: "Alex",
-        image_url:
+        image_urls: [
           "https://lh5.googleusercontent.com/p/AF1QipM5pelCh9LS5GAv7XUt2eO2SPVu5ocTCFjzuyGy=w408-h272-k-no",
+        ],
         description: "A big sea",
         public: true,
       })
@@ -76,8 +79,10 @@ describe("Post /api/locations", () => {
         return request(app)
           .get("/api/locations")
           .expect(200)
-          .then(({ body }) => {
-            expect(body[body.length - 1].location_name).toBe("The North Sea");
+          .then(({ body: { locations } }) => {
+            expect(locations[locations.length - 1].location_name).toBe(
+              "The North Sea"
+            );
           });
       });
   });
@@ -89,8 +94,9 @@ describe("Post /api/locations", () => {
         location_name: "Andark Lake",
         coordinates: [50.879926, , -1.290888],
         created_by: "Alex",
-        image_url:
+        image_urls: [
           "https://andarklake.co.uk/wp-content/uploads/2021/03/swim1-300x200.jpg",
+        ],
         description: "Organised open water swimming, with set opening times",
         public: false,
       })
@@ -136,7 +142,7 @@ describe("GET /api/locations/:id", () => {
       location_name: expect.any(String),
       coordinates: expect.any(Array),
       created_by: expect.any(String),
-      image_url: expect.any(String),
+      image_urls: expect.any(Array),
       votes: 0,
       comments: expect.any(Array),
       description: expect.any(String),
@@ -159,7 +165,7 @@ describe("GET /api/locations/:id", () => {
   });
 });
 
-describe("PATH /api/locations/:id", () => {
+describe("PATCH /api/locations/:id", () => {
   test("200: Updates the dangerous property to true", () => {
     return request(app)
       .patch("/api/locations/1")
@@ -176,12 +182,12 @@ describe("PATH /api/locations/:id", () => {
       .patch("/api/locations/2")
       .expect(200)
       .then(({ body: { updatedLocation } }) => {
-        expect(updatedLocation).toHaveProperty("dangerous", false);
+        expect(updatedLocation).toHaveProperty("dangerous", true);
       });
   });
   test("404: Location Not Found", () => {
     return request(app)
-      .patch("/api/locations/5")
+      .patch("/api/locations/999999999999999999999999999")
       .expect(404)
       .then(({ body: { message } }) => {
         expect(message).toEqual("Not Found");
@@ -193,6 +199,37 @@ describe("PATH /api/locations/:id", () => {
       .expect(400)
       .then(({ body: { message } }) => {
         expect(message).toEqual("Bad Request");
+      });
+  });
+});
+
+describe("GET /api/locations queries", () => {
+  it("returns a status 200 and an array of safe locations ", () => {
+    return request(app)
+      .get("/api/locations?dangerous=false")
+      .expect(200)
+      .then(({ body }) => {
+        body.locations.forEach((location) => {
+          expect(location.dangerous).toBe(false);
+        });
+      });
+  });
+  it("returns a staus 200 and an array of unsafe locations", () => {
+    return request(app)
+      .get("/api/locations?dangerous=true")
+      .expect(200)
+      .then(({ body }) => {
+        body.locations.forEach((location) => {
+          expect(location.dangerous).toBe(true);
+        });
+      });
+  });
+  it("rejects unacceptable fields", () => {
+    return request(app)
+      .get("/api/locations?bananas=true")
+      .expect(400)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Bad request");
       });
   });
 });
