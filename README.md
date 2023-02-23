@@ -8,7 +8,11 @@ Install packages with
     npm install
 ```
 
-A .env file is needed to configure access rights to the DB.
+A .env file is needed to configure access rights to the DB with theo format:
+
+```
+DATABASE_URL = ...
+```
 
 The available endpoints are:
 
