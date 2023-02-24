@@ -2,6 +2,7 @@ const locations = [
   {
     location_name: "Agden Resevoir",
     created_by: "Mitchel",
+    coordinates: [53.42642, -1.612444],
     image_urls: [
       "https://fastly.picsum.photos/id/125/1500/1000.jpg?hmac=s6pniw6JFp6F753Ow9mnVAVqt8tOcP8ZlZE5-aJ22co",
     ],

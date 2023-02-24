@@ -3,7 +3,7 @@ const locationSchema = new mongoose.Schema(
   {
     _id: Number,
     location_name: { type: String, required: true, unique: true },
-    coordinates: { type: Array },
+    coordinates: { type: Array, required: true },
     created_by: { type: String, required: true },
     created_at: { type: Date, immutable: true, default: () => Date.now() },
     image_urls: Array,
