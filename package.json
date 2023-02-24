@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon listen.js",
     "seed": "node ./seed_data/seed.js",
-    "test": "jest --watch --detectOpenHandles"
+    "test": "jest --watch --detectOpenHandles",
+    "run-seed": "node ./seed_data/run-seed.js"
   },
   "repository": {
     "type": "git",
