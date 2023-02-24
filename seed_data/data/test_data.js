@@ -17,7 +17,7 @@ const locations = [
       "https://media-cdn.tripadvisor.com/media/photo-s/11/0c/55/4f/beautiful-setting-on.jpg",
     ],
     public: true,
-    dangerous: false,
+    dangerous: true,
   },
   {
     location_name: "Manley Mere",

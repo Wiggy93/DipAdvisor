@@ -1,23 +1,8 @@
-const express = require("express");
-const {
-  getLocations,
-  getLocationById,
-  patchLocationById,
-  postLocation,
-} = require("../controllers/controllers");
-const router = express.Router();
+const router = require("express").Router();
+const { getEndpoints } = require("../controllers/controllers");
+const locationsRouter = require("./locations-routes");
 
-router.get("/locations", getLocations);
-router
-  .route("/locations/:location_id")
-  .get(getLocationById)
-  .patch(patchLocationById);
-
-router.post("/locations", postLocation);
-
-// What is this for? It doesn't seem to do anything.
-// router.patch("/locations/:location_id", (req, res) => {
-//   res.send("Patch location");
-// });
+router.route("/").get(getEndpoints);
+router.use("/locations", locationsRouter);
 
 module.exports = router;
