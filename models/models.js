@@ -1,5 +1,4 @@
 const locationSchema = require("../schemas/locationSchema");
-const fs = require("fs/promises");
 
 const fetchLocations = (query) => {
   if (query && Object.keys(query).length > 0) {
@@ -23,7 +22,7 @@ const fetchLocations = (query) => {
   }
 };
 
-const addLocation = async (body, list, length) => {
+const addLocation = async (body, list) => {
   if (
     body.location_name === undefined ||
     body.created_by === undefined ||
@@ -32,27 +31,26 @@ const addLocation = async (body, list, length) => {
   ) {
     return Promise.reject({ status: 400, message: "Bad Request" });
   }
-
-  const listOfNames = list.map((location) => {
-    return location.location_name;
-  });
-
-  if (listOfNames.includes(body.location_name)) {
-    return Promise.reject({
-      status: 409,
-      message: "Location name already exists",
+  return await locationSchema
+    .insertMany({
+      ...body,
+      _id: list + 1,
+    })
+    .then((location) => {
+      return location;
+    })
+    .catch(() => {
+      return Promise.reject({
+        status: 409,
+        message: "Location name already exists",
+      });
     });
-  }
-  const location = await locationSchema.insertMany({
-    ...body,
-    _id: list.length + 1,
-  });
-  return location;
 };
 
 const fetchLocationById = async (location_id) => {
   if (isNaN(location_id))
     return Promise.reject({ status: 400, message: "Bad Request" });
+
   const location = await locationSchema.findById(location_id);
   if (location === null)
     return Promise.reject({ status: 404, message: "Not Found" });
@@ -64,25 +62,17 @@ const updateLocationById = async (location_id) => {
     return Promise.reject({ status: 400, message: "Bad Request" });
 
   const location = await fetchLocationById(location_id);
-  return await locationSchema
-    .findByIdAndUpdate(
-      location_id,
-      { dangerous: location.dangerous ? false : true },
-      {
-        new: true,
-      }
-    )
-    .then((updatedLocation) => {
-      if (updatedLocation === null)
-        return Promise.reject({ status: 404, message: "Not Found" });
-      return updatedLocation;
-    });
-};
+  if (location === null)
+    return Promise.reject({ status: 404, message: "Not Found" });
 
-const readEndpoints = () => {
-  return fs.readFile("./endpoints.json", "utf-8").then((data) => {
-    return JSON.parse(data);
-  });
+  const updatedLocation = await locationSchema.findByIdAndUpdate(
+    location_id,
+    { dangerous: location.dangerous ? false : true },
+    {
+      new: true,
+    }
+  );
+  return updatedLocation;
 };
 
 module.exports = {
@@ -90,5 +80,4 @@ module.exports = {
   addLocation,
   fetchLocationById,
   updateLocationById,
-  readEndpoints,
 };

@@ -8,14 +8,9 @@ require("dotenv").config({
 
 const mongoStr = process.env.DATABASE_URL;
 
-mongoose
-  .connect(mongoStr)
-  .then(() => {
-    console.log("Connected to database");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+mongoose.connect(mongoStr).catch((err) => {
+  console.log(err);
+});
 
 const seedDB = async () => {
   try {

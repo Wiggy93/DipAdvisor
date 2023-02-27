@@ -1,7 +1,7 @@
 const routes = require("./routes/routes");
 const express = require("express");
 const mongoose = require("mongoose");
-const { getEndpoints } = require("./controllers/controllers");
+const { customError, pathError, serverError } = require("./error-handlers");
 
 require("dotenv").config();
 
@@ -11,32 +11,15 @@ mongoose.connect(mongoString);
 const database = mongoose.connection;
 
 app.use(express.json());
+
 app.use("/api", routes);
 
-app.use((err, req, res, next) => {
-  const { status, message } = err;
-  if (status) res.status(status).send({ message });
-  else next(err);
-});
-
-app.get("/api/", getEndpoints);
-
-app.use((err, req, res, next) => {
-  console.log(err);
-  res.status(500).send("Internal Server Error");
-});
-
-// Commented out this because it was interfering with jest
-// app.listen(3000, () => {
-//   console.log(`Server Started at ${3000}`);
-// });
+app.use(pathError);
+app.use(customError);
+app.use(serverError);
 
 database.on("error", (error) => {
   console.log(error);
-});
-
-database.once("connected", () => {
-  console.log("Database Connected");
 });
 
 module.exports = app;

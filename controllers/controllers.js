@@ -3,8 +3,8 @@ const {
   updateLocationById,
   fetchLocations,
   addLocation,
-  readEndpoints,
 } = require("../models/models");
+const endpoints = require("../endpoints.json");
 
 const getLocations = (req, res, next) => {
   const query = req.query;
@@ -17,11 +17,11 @@ const getLocations = (req, res, next) => {
     });
 };
 
-const postLocation = (req, res, next) => {
+const postLocation = async (req, res, next) => {
   const { body } = req;
   fetchLocations()
-    .then((data) => {
-      return addLocation(body, data);
+    .then((locations) => {
+      return addLocation(body, locations.length);
     })
     .then((data) => {
       res.status(201).send({ location: data });
@@ -49,9 +49,7 @@ const patchLocationById = (req, res, next) => {
 };
 
 const getEndpoints = (req, res, next) => {
-  readEndpoints().then((endpoints) => {
-    res.send({ endpoints });
-  });
+  res.send({ endpoints });
 };
 
 module.exports = {
