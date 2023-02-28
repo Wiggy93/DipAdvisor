@@ -231,7 +231,7 @@ describe("App", () => {
   });
 });
 
-describe.only("PATCH photo URLs by location", () => {
+describe("PATCH photo URLs by location", () => {
   it("returns 202", () => {
     return request(app)
       .patch("/api/photos/1")
