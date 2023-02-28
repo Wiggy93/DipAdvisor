@@ -230,3 +230,38 @@ describe("App", () => {
     });
   });
 });
+
+describe("PATCH photo URLs by location", () => {
+  it("returns 202", () => {
+    return request(app)
+      .patch("/api/photos/1")
+      .send({ url: "https" })
+      .expect(202);
+  });
+  it('"returns an object on a key of location with an updated image_urls field"', () => {
+    const imageURL = "https";
+    return request(app)
+      .patch("/api/photos/1")
+      .send({ url: imageURL })
+      .expect(202)
+      .then(({ body }) => {
+        expect(
+          body.location.image_urls[body.location.image_urls.length - 1]
+        ).toBe(imageURL);
+      });
+  });
+  test("404: Location Not Found", async () => {
+    const {
+      body: { message },
+    } = await request(app)
+      .patch("/api/photos/999999999999999999999999999")
+      .expect(404);
+    expect(message).toEqual("Not Found");
+  });
+  test("400: Invalid datatype for location_id", async () => {
+    const {
+      body: { message },
+    } = await request(app).patch("/api/photos/a").expect(400);
+    expect(message).toEqual("Bad Request");
+  });
+});

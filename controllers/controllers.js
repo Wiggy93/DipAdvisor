@@ -3,6 +3,7 @@ const {
   updateLocationById,
   fetchLocations,
   addLocation,
+  updateImageURLsByLocation,
 } = require("../models/models");
 const endpoints = require("../endpoints.json");
 
@@ -52,10 +53,21 @@ const getEndpoints = (req, res, next) => {
   res.send({ endpoints });
 };
 
+const patchPhotoByLocation = (req, res, next) => {
+  const { body } = req;
+  const { location_id } = req.params;
+  updateImageURLsByLocation(body, location_id)
+    .then((updatedLocation) => {
+      res.status(202).send({ location: updatedLocation });
+    })
+    .catch(next);
+};
+
 module.exports = {
   getLocations,
   postLocation,
   getLocationById,
   patchLocationById,
   getEndpoints,
+  patchPhotoByLocation,
 };

@@ -76,9 +76,28 @@ const updateLocationById = async (location_id) => {
   return updatedLocation;
 };
 
+const updateImageURLsByLocation = async (body, location_id) => {
+  if (isNaN(location_id))
+    return Promise.reject({ status: 400, message: "Bad Request" });
+
+  const location = await fetchLocationById(location_id);
+  if (location === null)
+    return Promise.reject({ status: 404, message: "Not Found" });
+
+  const updatedLocation = await locationSchema.findByIdAndUpdate(
+    location_id,
+    { $push: { image_urls: body.url } },
+    {
+      new: true,
+    }
+  );
+  return updatedLocation;
+};
+
 module.exports = {
   fetchLocations,
   addLocation,
   fetchLocationById,
   updateLocationById,
+  updateImageURLsByLocation,
 };
