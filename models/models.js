@@ -27,7 +27,8 @@ const addLocation = async (body, list) => {
     body.location_name === undefined ||
     body.created_by === undefined ||
     body.description === undefined ||
-    body.public === undefined
+    body.public === undefined ||
+    body.coordinates === undefined
   ) {
     return Promise.reject({ status: 400, message: "Bad Request" });
   }
