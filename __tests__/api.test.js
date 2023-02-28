@@ -159,6 +159,7 @@ describe("App", () => {
             description:
               "A water storage resevoir 6.5 miles west of Sheffield.",
             public: true,
+            coordinates: [50.879926, , -1.290888],
           })
           .expect(409);
         expect(body.message).toBe("Location name already exists");

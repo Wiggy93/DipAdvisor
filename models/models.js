@@ -22,7 +22,7 @@ const fetchLocations = (query) => {
   }
 };
 
-const addLocation = async (body, list) => {
+const addLocation = async (body, listLength) => {
   if (
     body.location_name === undefined ||
     body.created_by === undefined ||
@@ -35,7 +35,7 @@ const addLocation = async (body, list) => {
   return await locationSchema
     .insertMany({
       ...body,
-      _id: list + 1,
+      _id: listLength + 1,
     })
     .then((location) => {
       return location;
