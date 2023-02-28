@@ -22,7 +22,7 @@ const locations = [
   },
   {
     location_name: "Manley Mere",
-    coordinates: [51.146592, -0.063179],
+    coordinates: [53.244975, -2.772986],
     created_by: "George",
     description:
       "Open Water Swimming with marked courses (we have a 250m loop especially for beginners) 500 and 750m loop and safety cover On site parking, toilet & changing and shower facilities, Chameleon Cafe Bar.",
