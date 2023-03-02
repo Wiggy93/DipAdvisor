@@ -50,8 +50,8 @@ const locations = [
     location_name: "Askham & Helton Lido",
     created_by: "Admin",
     image_urls: [
-      "https://www.askhamandhelton.co.uk/wp-content/uploads/2014/04/Pool2-1024x192.jpg",
-      "http://www.askhamandhelton.co.uk/wp-content/uploads/2014/04/pool5.jpg",
+      "https://i.guim.co.uk/img/media/ea4e2ca5dc943aa0b2715197019ba4fc1c721525/0_25_2418_1451/master/2418.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=d2c4316f344fadc35116107cf4009821",
+      "https://res.dayoutwiththekids.co.uk/image/upload/w_1600,q_75,c_fill/v1594046869/attractions/a/askham-outdoor-swimming-pools-0eabc5cd/36447-askham-outdoor-swimming-pools-penrith-01.jpg",
     ],
     coordinates: [54.60639918801785, -2.7553538728462184],
     description:
@@ -161,7 +161,7 @@ const locations = [
   },
   {
     _id: Number,
-    location_name: "Kynance Cove, Cornwall",
+    location_name: "Kynance Cove",
     coordinates: [49.973238, -5.231545],
     created_by: "No-Arm-Bands1962",
     image_urls: [
