@@ -19,6 +19,7 @@ const locations = [
     ],
     public: true,
     dangerous: true,
+    votes: 5,
   },
   {
     location_name: "Manley Mere",
@@ -26,8 +27,11 @@ const locations = [
     created_by: "George",
     description:
       "Open Water Swimming with marked courses (we have a 250m loop especially for beginners) 500 and 750m loop and safety cover On site parking, toilet & changing and shower facilities, Chameleon Cafe Bar.",
+    image_urls:
+      "https://www.manleymere.co.uk/wp-content/uploads/elementor/thumbs/IMG_1349-scaled-pjaqfbhh6y46sv5d69wtz3e48kcw3y8pv6pjbd4q7w.jpg",
     public: true,
     dangerous: false,
+    votes: 1,
   },
   {
     location_name: "Shepperton Lake",
@@ -40,6 +44,7 @@ const locations = [
       "Open water swimming at Shepperton lake is on a booking only basis so you must make a booking with us before you arrive at the lake. New swimmmers must complete an induction.",
     public: false,
     dangerous: false,
+    votes: 2,
   },
   {
     location_name: "Askham & Helton Lido",
@@ -47,8 +52,6 @@ const locations = [
     image_urls: [
       "https://www.askhamandhelton.co.uk/wp-content/uploads/2014/04/Pool2-1024x192.jpg",
       "http://www.askhamandhelton.co.uk/wp-content/uploads/2014/04/pool5.jpg",
-      "http://www.askhamandhelton.co.uk/wp-content/uploads/2014/04/pool5.jpg",
-      "https://www.askhamandhelton.co.uk/wp-content/uploads/2014/04/Pool2-1024x192.jpg",
     ],
     coordinates: [54.60639918801785, -2.7553538728462184],
     description:
@@ -56,6 +59,139 @@ const locations = [
     public: false,
     dangerous: false,
     depth: "2 m",
+    votes: 3,
+  },
+  {
+    _id: Number,
+    location_name: "Stream flowing into Burrator Reservoir",
+    coordinates: [50.492592, -4.049772],
+    created_by: "Ben",
+    image_urls: [
+      "https://firebasestorage.googleapis.com/v0/b/dipadvisor.appspot.com/o/IMG_0057.jpg?alt=media&token=c565173d-02ee-4016-83ba-8728c97b49e5",
+    ],
+    votes: 29,
+    description:
+      "Although swimming in the reservoir is prohibited, there are many pools in the streams flowing into it.",
+    depth: "Knees to waist height.",
+    water_temp: "Chilly chilly",
+    public: true,
+    dangerous: false,
+  },
+  {
+    _id: Number,
+    location_name: "Undercliff Promenade, Bournemouth",
+    coordinates: [50.714394, -1.882951],
+    created_by: "TheBergamot",
+    image_urls: [
+      "https://firebasestorage.googleapis.com/v0/b/dipadvisor.appspot.com/o/IMG_0476.jpg?alt=media&token=cdf6811a-7ebd-4060-813f-549634c044fd",
+    ],
+    votes: 23,
+    description: "A classic British beach with lifeguards.",
+    depth: "All the way",
+    water_temp: "Not bad not bad",
+    public: true,
+    dangerous: false,
+  },
+  {
+    _id: Number,
+    location_name: "St Mary's Bay, Devon",
+    coordinates: [50.386344, -3.503587],
+    description:
+      "What a beach! if you're lucky, you might swim with seals and porpoises too",
+    image_urls: [
+      "https://firebasestorage.googleapis.com/v0/b/dipadvisor.appspot.com/o/IMG_0584.jpg?alt=media&token=d366aefd-a2d5-4c78-b46a-a8a00b4f6c87",
+    ],
+    votes: 52,
+    created_by: "Stuart the Seaswimmer",
+    depth: "Very indeed",
+    water_temp: "Mild",
+    public: true,
+    dangerous: false,
+  },
+  {
+    _id: Number,
+    location_name: "The Lizard, Cornwall",
+    coordinates: [49.959, -5.202699],
+    created_by: "DavidDipster_79",
+    image_urls: [
+      "https://firebasestorage.googleapis.com/v0/b/dipadvisor.appspot.com/o/IMG_0593.jpg?alt=media&token=14f64855-70bf-4ef9-bc4e-ca08348f29e2",
+      "https://firebasestorage.googleapis.com/v0/b/dipadvisor.appspot.com/o/IMG_0598.jpg?alt=media&token=328b0046-95c4-4165-8a39-6d94e82a04c3",
+    ],
+    votes: 23,
+    description:
+      "A VERY challenging descent. Very secluded once you're there though.",
+    depth: "Instantly over my head.",
+    water_temp: "Warmest in Britain.",
+    public: true,
+    dangerous: false,
+  },
+  {
+    _id: Number,
+    location_name: "Sharrah Pools, Dartmoor",
+    coordinates: [50.528384, -3.81504],
+    created_by: "Sharky",
+    image_urls: [
+      "https://firebasestorage.googleapis.com/v0/b/dipadvisor.appspot.com/o/IMG_0734.jpg?alt=media&token=2f91cb7c-685b-4d2c-bf1d-18eb73d3ed9a",
+      "https://firebasestorage.googleapis.com/v0/b/dipadvisor.appspot.com/o/IMG_0742.jpg?alt=media&token=83088fec-80a1-4eb7-b42d-2b4ae1adaa6e",
+      "https://firebasestorage.googleapis.com/v0/b/dipadvisor.appspot.com/o/IMG_0743.jpg?alt=media&token=5cb3a656-e02b-485a-aebc-69e145fd7f1f",
+      "https://firebasestorage.googleapis.com/v0/b/dipadvisor.appspot.com/o/IMG_0745.jpg?alt=media&token=f9b87f2b-79a1-45ac-b0f3-07288a1187fc",
+    ],
+    votes: 10,
+    description:
+      "Lovely wide stretches of river with pools of a range of depths. 5 stars!",
+    depth: "Suitable for every one",
+    water_temp: "Polar",
+    public: true,
+    dangerous: false,
+  },
+  {
+    _id: Number,
+    location_name: "Mullion, Helston",
+    coordinates: [50.024634, -5.258537],
+    created_by: "paddle-4-eva",
+    image_urls: [
+      "https://firebasestorage.googleapis.com/v0/b/dipadvisor.appspot.com/o/IMG_0949.jpg?alt=media&token=0f79b7d4-acfd-4cee-92f0-67837b0cd6e4",
+    ],
+    votes: 2,
+    description: "Secluded fishing port with easy access to the sea.",
+    depth: "Perfect for paddling.",
+    water_temp: "Mild",
+    public: true,
+    dangerous: false,
+  },
+  {
+    _id: Number,
+    location_name: "Kynance Cove, Cornwall",
+    coordinates: [49.973238, -5.231545],
+    created_by: "No-Arm-Bands1962",
+    image_urls: [
+      "https://firebasestorage.googleapis.com/v0/b/dipadvisor.appspot.com/o/IMG_0980.jpg?alt=media&token=8b4c79b9-dfee-46ed-8d94-77cd3156e53f",
+      "https://firebasestorage.googleapis.com/v0/b/dipadvisor.appspot.com/o/IMG_0977.jpg?alt=media&token=903f1df3-2408-4c7c-8f3a-46c93aee00a8",
+    ],
+    votes: 2,
+    description:
+      "An unmissable beach! The greatest in the world. Run there immediately!",
+    depth: "Everything you could want",
+    water_temp: "warm warm warm",
+    public: true,
+    dangerous: false,
+  },
+  {
+    _id: Number,
+    location_name: "Housel Bay, Cornwall",
+    coordinates: [49.972962, -5.225934],
+    created_by: "Flipper",
+    image_urls: [
+      "https://firebasestorage.googleapis.com/v0/b/dipadvisor.appspot.com/o/IMG_0989.jpg?alt=media&token=8268962f-1453-4ad0-946d-ccae80faa631",
+      "https://firebasestorage.googleapis.com/v0/b/dipadvisor.appspot.com/o/IMG_0995.jpg?alt=media&token=5adc6678-aad1-4046-80f8-3f409d2860ff",
+    ],
+    votes: 2,
+    description:
+      "Almost impossible to access. Equally hard to return from. A guaranteed quiet swim though.",
+    depth: "very",
+    water_temp: "mild",
+    public: true,
+    dangerous: false,
   },
 ];
 module.exports = locations;
